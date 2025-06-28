@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "SoM voting",
+  "version": "1.0",
+  "description": "Vote on projects now!!",
+  "permissions": [],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://summer.hackclub.com/*"
+      ],
+      "js": ["index.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
