@@ -49,7 +49,7 @@
         const btn = document.createElement("button");
         btn.innerText = "click here to give me ur xoxp token!";
         btn.addEventListener("click", async () => {
-            const xoxp = prompt("Please enter ur xoxp here!")
+          const xoxp = prompt("Please enter ur xoxp here!");
           await storage.sync.set({ xoxp });
           document.querySelector("#noauth").remove();
         });
@@ -60,7 +60,7 @@
         noAuthDiv.appendChild(btn);
       } else {
         const noAuthDiv = document.querySelector("#noauth");
-        noAuthDiv.innerHTML = `Your logged in and all setup!`
+        noAuthDiv.innerHTML = `Your logged in and all setup!`;
       }
     } catch (error) {
       console.error("Error checking authorization status:", error);
