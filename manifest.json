@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
   "name": "SoM voting",
-  "version": "1.0",
+  "version": "0.0.1",
+  
   "description": "Vote on projects now!!",
-  "permissions": [],
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": [
@@ -12,5 +13,16 @@
       "js": ["index.js"],
       "run_at": "document_idle"
     }
-  ]
+  ],
+   "options_ui": {
+    "page": "options.html"
+  },
+ "action": {
+    "default_popup": "options.html"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "som-share-votes@saahild.com"
+    }
+  }
 }

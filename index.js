@@ -14,7 +14,7 @@
  * @property {boolean} is_tie
  *
  */
-
+let do_not_event_bother_running = false;
 async function sendEventVote({
     winner_project,
     loser_project,
@@ -24,7 +24,9 @@ async function sendEventVote({
     fetch('https://api.saahild.com/api/som/vote', {
   method: 'POST',
   headers: {
-    'Authorization': localStorage.getItem('xoxp'),
+    'Authorization':  await chrome.storage.sync
+    .get("xoxp")
+    .then((d) => d.xoxp|| "xoxp-null"),
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
@@ -36,7 +38,9 @@ async function sendEventVote({
 });
 }
 
-function main() {
+async function main() {
+  const anon =
+      (await chrome.storage.sync.get("anon").then((d) => d.anon)) || false;
     const divOfThingy = document.body
 const [ldemo, rdemo] = Array.from(divOfThingy.querySelectorAll('[data-analytics-link="demo"]')).map(d=>d.href)
 const [lrepo, rrepo] = Array.from(divOfThingy.querySelectorAll('[data-analytics-link="repo"]')).map(d=>d.href)
@@ -73,7 +77,8 @@ sendEventVote({
 }
 }
 
-setInterval(() => {
+setInterval(async () => {
+  if(do_not_event_bother_running) return; // If not authed, do not run the script
     if(localStorage.getItem("waitUntil") && Date.now() < parseInt(localStorage.getItem("waitUntil"))) {
     console.log("Waiting for the voting script to reset...");
     return;
@@ -84,7 +89,7 @@ setInterval(() => {
   // Only runs if we're on the voting page
   if (!window.hasRunVotingScript) {
     window.hasRunVotingScript = true; // prevent running more than once
-    main();
+  await   main();
   }
 } 
   if(!document.body.querySelector('[name="vote[explanation]"') && window.hasRunVotingScript) {
@@ -93,3 +98,14 @@ setInterval(() => {
     console.log("Resetting voting script due to missing input box.");
   }
 }, 50)
+window.onload = async () => {
+    const isAuthed = await chrome.storage.sync
+    .get("xoxp")
+    .then((d) => Boolean(d.xoxp));
+  if (!isAuthed) {
+    alert(
+      `You are not authed! please go to the options page for the chrome extension "Som Share Votes"`,
+    );
+    do_not_event_bother_running = true;
+  }
+}
