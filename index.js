@@ -20,6 +20,7 @@ async function sendEventVote({
   loser_project,
   explanation,
   is_tie = false,
+  anon
 }) {
   fetch("https://api.saahild.com/api/som/vote", {
     method: "POST",
@@ -34,6 +35,7 @@ async function sendEventVote({
       title: winner_project.title,
       a_title: loser_project.title,
       is_tie: is_tie,
+      anon
     }),
   });
 }
@@ -78,6 +80,7 @@ async function main() {
     // alert(`You voted for ${WinningStatus} project: ${WinningStatus === "LEFT" ? lname : WinningStatus === "RIGHT" ? rname : "TIE"}\n\n`  + voteValue)
     sendEventVote({
       explanation: voteValue,
+      anon,
       winner_project: {
         title:
           WinningStatus === "LEFT"
