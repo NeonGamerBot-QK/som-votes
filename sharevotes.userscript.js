@@ -160,14 +160,3 @@ setInterval(async () => {
     console.log("Resetting voting script due to missing input box.");
   }
 }, 50);
-window.onload = async () => {
-  const isAuthed = await chrome.storage.sync
-    .get("xoxp")
-    .then((d) => Boolean(d.xoxp));
-  if (!isAuthed) {
-    alert(
-      `You are not authed! please go to the options page for the chrome extension "Som Share Votes"`,
-    );
-    do_not_event_bother_running = true;
-  }
-};
