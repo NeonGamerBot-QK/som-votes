@@ -7,20 +7,25 @@
 // ==/UserScript==
 
 // get your xoxp token from https://api.saahild.com/api/som/slack/oauth
-const xoxp = localStorage.getItem("xoxp") || "enter-ur-xoxp-here"
+const xoxp = localStorage.getItem("xoxp") || "enter-ur-xoxp-here";
 const config = {
-    // change ur config values below!
-    anon: false,
-    send_it_to_user: false,
-    // hey! hey! make sure you put your xoxp hard coded or else its gonna prompt you each time
-    xoxp:  xoxp == "enter-ur-xoxp-here" ? prompt("Whats your XOXP token? (get it from: https://api.saahild.com/api/som/slack/oauth)") : xoxp,
+  // change ur config values below!
+  anon: false,
+  send_it_to_user: false,
+  // hey! hey! make sure you put your xoxp hard coded or else its gonna prompt you each time
+  xoxp:
+    xoxp == "enter-ur-xoxp-here"
+      ? prompt(
+          "Whats your XOXP token? (get it from: https://api.saahild.com/api/som/slack/oauth)",
+        )
+      : xoxp,
+};
+if (!config.xoxp) {
+  window.open("https://api.saahild.com/api/som/slack/oauth");
+  location.reload();
 }
-if(!config.xoxp) {
-    window.open("https://api.saahild.com/api/som/slack/oauth");
-location.reload()
-}
-if(!localStorage.getItem("xoxp")) {
-    localStorage.setItem("xoxp", config.xoxp)
+if (!localStorage.getItem("xoxp")) {
+  localStorage.setItem("xoxp", config.xoxp);
 }
 // ac code here
 /**
@@ -60,15 +65,14 @@ async function sendEventVote({
       a_title: loser_project.title,
       is_tie: is_tie,
       anon,
-      send_it_to_user: send_to_user
+      send_it_to_user: send_to_user,
     }),
   });
 }
 
 async function main() {
-  const anon =
-   config.anon || false;
-  const send_to_user = config.send_it_to_user
+  const anon = config.anon || false;
+  const send_to_user = config.send_it_to_user;
   const divOfThingy = document.body;
   const [ldemo, rdemo] = Array.from(
     divOfThingy.querySelectorAll('[data-analytics-link="demo"]'),
