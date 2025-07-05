@@ -22,7 +22,7 @@
 
   send_to_user.addEventListener("change", (e) => {
     storage.sync.set({ send_to_user: e.target.checked });
-  })
+  });
   // Retrieve and set the values for the checkboxes
   const loadStorageValues = async () => {
     try {
