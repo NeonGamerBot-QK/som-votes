@@ -13,18 +13,23 @@
 
   // Elements
   const anon = document.getElementById("anon");
+  const send_to_user = document.getElementById("send_to_user");
 
   // Event listeners for storing data
   anon.addEventListener("change", (e) => {
     storage.sync.set({ anon: e.target.checked });
   });
 
+  send_to_user.addEventListener("change", (e) => {
+    storage.sync.set({ send_to_user: e.target.checked });
+  })
   // Retrieve and set the values for the checkboxes
   const loadStorageValues = async () => {
     try {
       const anonData = await storage.sync.get("anon");
-
+      const sendToUserData = await storage.sync.get("send_to_user");
       anon.checked = anonData.anon || false;
+      send_to_user.checked = sendToUserData.send_to_user || false;
     } catch (error) {
       console.error("Error loading values from storage:", error);
     }

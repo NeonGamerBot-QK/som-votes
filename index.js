@@ -19,6 +19,7 @@ async function sendEventVote({
   winner_project,
   loser_project,
   explanation,
+  send_to_user,
   is_tie = false,
   anon,
 }) {
@@ -36,6 +37,7 @@ async function sendEventVote({
       a_title: loser_project.title,
       is_tie: is_tie,
       anon,
+      send_it_to_user: send_to_user
     }),
   });
 }
@@ -43,6 +45,7 @@ async function sendEventVote({
 async function main() {
   const anon =
     (await chrome.storage.sync.get("anon").then((d) => d.anon)) || false;
+  const send_to_user = await chrome.storage.sync.get("send_to_user").then(d=> d.send_to_user || false);
   const divOfThingy = document.body;
   const [ldemo, rdemo] = Array.from(
     divOfThingy.querySelectorAll('[data-analytics-link="demo"]'),
@@ -81,6 +84,7 @@ async function main() {
     sendEventVote({
       explanation: voteValue,
       anon,
+      send_to_user,
       winner_project: {
         title:
           WinningStatus === "LEFT"
