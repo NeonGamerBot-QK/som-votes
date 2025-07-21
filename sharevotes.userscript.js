@@ -16,8 +16,8 @@ const config = {
   xoxp:
     xoxp == "enter-ur-xoxp-here"
       ? prompt(
-          "Whats your XOXP token? (get it from: https://api.saahild.com/api/som/slack/oauth)",
-        )
+        "Whats your XOXP token? (get it from: https://api.saahild.com/api/som/slack/oauth)",
+      )
       : xoxp,
 };
 if (!config.xoxp) {
@@ -74,12 +74,12 @@ async function main() {
   const anon = config.anon || false;
   const send_to_user = config.send_it_to_user;
   const divOfThingy = document.body;
-  const [ldemo, rdemo] = Array.from(
-    divOfThingy.querySelectorAll('[data-analytics-link="demo"]'),
-  ).map((d) => d.href);
-  const [lrepo, rrepo] = Array.from(
-    divOfThingy.querySelectorAll('[data-analytics-link="repo"]'),
-  ).map((d) => d.href);
+  // const [ldemo, rdemo] = Array.from(
+  //   divOfThingy.querySelectorAll('[data-analytics-link="demo"]'),
+  // ).map((d) => d.href);
+  // const [lrepo, rrepo] = Array.from(
+  //   divOfThingy.querySelectorAll('[data-analytics-link="repo"]'),
+  // ).map((d) => d.href);
   const [lname, rname] = Array.from(
     divOfThingy.querySelectorAll(
       '[class="text-xl sm:text-3xl mb-1 sm:mb-2 truncate"]',
@@ -90,7 +90,7 @@ async function main() {
   );
 
   const submitButton = divOfThingy.querySelector(
-    '[data-disable-with="Submit Vote"]',
+    '[data-form-target="submitButton"]',
   );
   const voteTextbox = divOfThingy.querySelector('[name="vote[explanation]"');
 
