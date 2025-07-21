@@ -16,8 +16,8 @@ const config = {
   xoxp:
     xoxp == "enter-ur-xoxp-here"
       ? prompt(
-        "Whats your XOXP token? (get it from: https://api.saahild.com/api/som/slack/oauth)",
-      )
+          "Whats your XOXP token? (get it from: https://api.saahild.com/api/som/slack/oauth)",
+        )
       : xoxp,
 };
 if (!config.xoxp) {
